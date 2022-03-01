@@ -7,7 +7,6 @@ export default {
     port: 7001,
   },
   orm: {
-
     type: 'mysql',
     host: '127.0.0.1',
     port: 3306,
@@ -16,5 +15,6 @@ export default {
     database: 'test',
     synchronize: true, // 如果第一次使用，不存在表，有同步的需求可以写 true
     logging: false,
+    dateStrings: true, //时间转字符串
   },
 } as MidwayConfig;

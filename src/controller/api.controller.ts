@@ -14,7 +14,6 @@ export class APIController {
   @Post('/')
   async getUser(@Body() user: User) {
     const data = await this.userService.saveUser({ ...user });
-    console.log('data', data);
-    return { success: true, message: 'OK', data: user };
+    return { success: true, message: 'OK', data };
   }
 }
