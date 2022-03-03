@@ -3,6 +3,10 @@ import { MidwayConfig } from '@midwayjs/core';
 export default {
   // use for cookie sign key, should change to your own and keep security
   keys: '1646105953707_4674',
+  jwt: {
+    secret: 'sasd121saaadl1213121', // fs.readFileSync('xxxxx.key')
+    expiresIn: '2d',
+  },
   koa: {
     port: 7001,
   },

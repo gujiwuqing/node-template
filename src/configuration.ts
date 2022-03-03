@@ -3,6 +3,8 @@ import * as koa from '@midwayjs/koa';
 import * as validate from '@midwayjs/validate';
 import * as info from '@midwayjs/info';
 import * as orm from '@midwayjs/orm';
+import * as jwt from '@midwayjs/jwt';
+import * as passport from '@midwayjs/passport';
 import { join } from 'path';
 // import { DefaultErrorFilter } from './filter/default.filter';
 // import { NotFoundFilter } from './filter/notfound.filter';
@@ -13,6 +15,8 @@ import { ReportMiddleware } from './middleware/report.middleware';
     koa,
     validate,
     orm,
+    jwt,
+    passport,
     {
       component: info,
       enabledEnvironment: ['local'],
