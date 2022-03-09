@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "private": true,
+  "license": "MIT",
   "dependencies": {
     "@midwayjs/bootstrap": "^3.0.0",
     "@midwayjs/core": "^3.0.0",
@@ -18,7 +19,7 @@
     "mysql2": "^2.3.3",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",
-    "typeorm": "^0.2.44"
+    "typeorm": "^0.2.45"
   },
   "devDependencies": {
     "@midwayjs/cli": "^1.2.90",
@@ -53,6 +54,5 @@
     "type": "git",
     "url": ""
   },
-  "author": "anonymous",
-  "license": "MIT"
+  "author": "anonymous"
 }
