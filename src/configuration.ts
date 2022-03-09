@@ -1,4 +1,4 @@
-import { Configuration, App } from '@midwayjs/decorator';
+import { App, Configuration } from '@midwayjs/decorator';
 import * as koa from '@midwayjs/koa';
 import * as validate from '@midwayjs/validate';
 import * as info from '@midwayjs/info';
@@ -9,6 +9,7 @@ import { join } from 'path';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { NotFoundFilter } from './filter/notfound.filter';
 import { ReportMiddleware } from './middleware/report.middleware';
+import { LoggerMiddleware } from './middleware/logger.middleware';
 
 @Configuration({
   imports: [
@@ -30,7 +31,7 @@ export class ContainerLifeCycle {
 
   async onReady() {
     // add middleware
-    this.app.useMiddleware([ReportMiddleware]);
+    this.app.useMiddleware([ReportMiddleware, LoggerMiddleware]);
     // add filter
     this.app.useFilter([NotFoundFilter, DefaultErrorFilter]);
   }
