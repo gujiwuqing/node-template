@@ -1,14 +1,15 @@
-import { Configuration, App } from '@midwayjs/decorator';
-import * as koa from '@midwayjs/koa';
-import * as validate from '@midwayjs/validate';
-import * as info from '@midwayjs/info';
-import * as orm from '@midwayjs/orm';
-import * as jwt from '@midwayjs/jwt';
-import * as passport from '@midwayjs/passport';
-import { join } from 'path';
+import { Configuration, App } from "@midwayjs/decorator";
+import * as koa from "@midwayjs/koa";
+import * as validate from "@midwayjs/validate";
+import * as info from "@midwayjs/info";
+import * as orm from "@midwayjs/orm";
+import * as jwt from "@midwayjs/jwt";
+import * as passport from "@midwayjs/passport";
+import * as swagger from "@midwayjs/swagger";
+import { join } from "path";
 // import { DefaultErrorFilter } from './filter/default.filter';
 // import { NotFoundFilter } from './filter/notfound.filter';
-import { ReportMiddleware } from './middleware/report.middleware';
+import { ReportMiddleware } from "./middleware/report.middleware";
 
 @Configuration({
   imports: [
@@ -17,12 +18,13 @@ import { ReportMiddleware } from './middleware/report.middleware';
     orm,
     jwt,
     passport,
+    swagger,
     {
       component: info,
-      enabledEnvironment: ['local'],
-    },
+      enabledEnvironment: ["local"]
+    }
   ],
-  importConfigs: [join(__dirname, './config')],
+  importConfigs: [join(__dirname, "./config")]
 })
 export class ContainerLifeCycle {
   @App()
