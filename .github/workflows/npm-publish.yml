@@ -28,4 +28,4 @@ jobs:
             git pull
             yarn
             yarn build
-            pm2 restart 17
+            pm2 restart 26
