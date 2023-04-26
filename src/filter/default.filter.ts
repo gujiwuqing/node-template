@@ -9,7 +9,7 @@ export class DefaultErrorFilter {
       // @ts-ignore
       status: err.status ?? 500,
       success: false,
-      message: err.message
-    }
+      message: err.message,
+    };
   }
 }

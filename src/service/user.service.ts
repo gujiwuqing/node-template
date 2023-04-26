@@ -6,7 +6,7 @@ import { Repository } from 'typeorm';
 import { UserLoginDTO, UserSearchDTO } from '../interface/user';
 import { Context } from '@midwayjs/koa';
 import { JwtService } from '@midwayjs/jwt';
-import { httpError } from '@midwayjs/core';
+import { CustomHttpError } from '../error/custom.error'
 
 @Provide()
 export class UserService {
@@ -22,11 +22,15 @@ export class UserService {
   // save
   async saveUser(user) {
     if (!user.username || !user.password) {
-      throw new httpError.InternalServerErrorError('用户名不得为空');
+      throw new CustomHttpError('用户名不得为空', 1002);
     }
-    const User = await this.UserModel.findOne(user.username);
+    const User = await this.UserModel.findOne({
+      where: {
+        username: user.username,
+      },
+    });
     if (User) {
-      throw new httpError.InternalServerErrorError('用户已存在');
+      throw new CustomHttpError('用户已存在', 1003);
     }
     return await this.UserModel.save(user);
   }
@@ -61,18 +65,10 @@ export class UserService {
       })
       .getOne();
     if (!User) {
-      return {
-        success: false,
-        message: '用户不存在',
-        code: '12200',
-      };
+      throw new CustomHttpError('用户不存在', 1004);
     }
     if (User.password !== user.password) {
-      return {
-        success: false,
-        message: '密码不正确',
-        code: '12200',
-      };
+      throw new CustomHttpError('密码不正确', 1005);
     }
     const token = await this.jwt.sign(
       {

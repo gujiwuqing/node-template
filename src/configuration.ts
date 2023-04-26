@@ -13,6 +13,7 @@ import { ReportMiddleware } from './middleware/report.middleware';
 import { FormatMiddleware } from './middleware/format.middleware';
 import { JwtPassportMiddleware } from './middleware/jwt.middleware';
 
+
 @Configuration({
   imports: [
     koa,
@@ -40,9 +41,9 @@ export class ContainerLifeCycle {
     ]);
     // add filter
     this.app.useFilter([
-      InternalServerErrorFilter,
       NotFoundFilter,
       DefaultErrorFilter,
+      InternalServerErrorFilter,
     ]);
   }
 }

@@ -8,16 +8,6 @@ export class JwtPassportMiddleware {
   @Inject()
   jwtService: JwtService;
 
-  // 你要忽略的路径
-  ignore(ctx: Context): boolean {
-    return (
-      ctx.path === '/user/login' ||
-      ctx.path === '/captcha' ||
-      ctx.path === '/user' ||
-      (ctx.header.type !== 'backstage' && ctx.method === 'GET') //
-    );
-  }
-
   resolve() {
     return async (ctx: Context, next: NextFunction) => {
       // 判断下有没有校验信息
@@ -45,5 +35,14 @@ export class JwtPassportMiddleware {
         await next();
       }
     };
+  }
+  // 配置忽略鉴权的路由地址
+  public match(ctx: Context): boolean {
+    return (
+      ctx.path === '/user/login' ||
+      ctx.path === '/captcha' ||
+      (ctx.path === '/user' && ctx.method === 'POST') ||
+      (ctx.header.type !== 'backstage' && ctx.method === 'GET')
+    );
   }
 }
