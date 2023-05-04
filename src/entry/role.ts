@@ -2,6 +2,7 @@ import { Column, OneToMany, ManyToMany, Entity } from 'typeorm';
 import { BaseModel } from '../model/base';
 import { User } from './user';
 import { Menu } from './menu';
+import { UserRole } from '../interface/role';
 
 @Entity()
 export class Role extends BaseModel {
@@ -11,9 +12,12 @@ export class Role extends BaseModel {
   name: string;
 
   @Column({
+    type: 'enum',
+    enum: UserRole,
+    default: UserRole.VISITOR,
     comment: '类型',
   })
-  type: string;
+  type: UserRole;
   // visitor 访客  admin 管理员 root 超级管理员
 
   @Column({

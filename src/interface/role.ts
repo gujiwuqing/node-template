@@ -1,9 +1,21 @@
 import { BaseListDTO } from './base';
 import { ApiProperty } from '@midwayjs/swagger';
 
-export interface RoleSearchDTO extends BaseListDTO {
+export enum UserRole {
+  ROOT = 'root',
+  ADMIN = 'admin',
+  VISITOR = 'visitor',
+}
+
+export class RoleSearchDTO extends BaseListDTO {
+  @ApiProperty({ description: '角色名称' })
   name?: string;
-  type?: string;
+
+  @ApiProperty({
+    enum: [UserRole.ROOT, UserRole.ADMIN, UserRole.VISITOR],
+    description: '角色类型',
+  })
+  type?: UserRole;
 }
 
 export class RoleSaveDTO {
@@ -13,8 +25,11 @@ export class RoleSaveDTO {
   @ApiProperty({ description: '角色描述' })
   description: string;
 
-  @ApiProperty({ description: '角色描述' })
-  type: string;
+  @ApiProperty({
+    description: '角色类型',
+    enum: [UserRole.ROOT, UserRole.ADMIN, UserRole.VISITOR],
+  })
+  type: UserRole;
 
   @ApiProperty({ description: '角色菜单' })
   menus: any[];

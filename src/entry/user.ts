@@ -6,6 +6,7 @@ import { Role } from './role';
 export class User extends BaseModel {
   @Column({
     comment: '用户名',
+    type: 'varchar',
   })
   username: string;
 

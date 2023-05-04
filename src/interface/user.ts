@@ -2,7 +2,10 @@ import { BaseListDTO } from './base';
 import { Rule, RuleType } from '@midwayjs/validate';
 import { ApiProperty } from '@midwayjs/swagger';
 
-export interface UserSearchDTO extends BaseListDTO {
+export class UserSearchDTO extends BaseListDTO {
+  @ApiProperty({
+    description: '用户名',
+  })
   username?: string;
 }
 
