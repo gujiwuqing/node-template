@@ -24,7 +24,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.DEPLOY_KEY }}
           script: |
-            cd /www/server/node-demo
+            cd /www/server/node-template
             git pull
             yarn
             yarn build
