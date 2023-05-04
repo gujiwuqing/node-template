@@ -7,6 +7,7 @@
     "@midwayjs/bootstrap": "^3.0.0",
     "@midwayjs/captcha": "^3.11.6",
     "@midwayjs/core": "^3.0.0",
+    "@midwayjs/cross-domain": "^3.11.6",
     "@midwayjs/decorator": "^3.0.0",
     "@midwayjs/info": "^3.0.0",
     "@midwayjs/jwt": "^3.0.0",

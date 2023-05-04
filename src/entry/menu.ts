@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { BaseModel } from '../model/base';
 import { Role } from './role';
+import { MenuType } from '../interface/menu';
 
 @Entity('menu')
 export class Menu extends BaseModel {
@@ -46,17 +47,17 @@ export class Menu extends BaseModel {
 
   @Column({
     comment: '菜单类型',
-    default: 'menu',
+    default: MenuType.MENU,
   })
-  type: string;
+  type: MenuType;
 
   //menu:菜单 button:按钮
 
   @Column({
     comment: '菜单状态',
-    default: '1',
+    default: 1,
   })
-  status: string;
+  status: number;
 
   //1:正常，0:禁用
 

@@ -12,6 +12,9 @@ export default {
   koa: {
     port: 3002,
   },
+  cors: {
+    credentials: false,
+  },
   typeorm: {
     dataSource: {
       default: {

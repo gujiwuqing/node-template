@@ -6,6 +6,7 @@ import * as orm from '@midwayjs/typeorm';
 import * as jwt from '@midwayjs/jwt';
 import * as swagger from '@midwayjs/swagger';
 import * as captcha from '@midwayjs/captcha';
+import * as crossDomain from '@midwayjs/cross-domain';
 import { join } from 'path';
 import { DefaultErrorFilter } from './filter/default.filter';
 import { NotFoundFilter } from './filter/notfound.filter';
@@ -22,6 +23,7 @@ import { JwtPassportMiddleware } from './middleware/jwt.middleware';
     jwt,
     swagger,
     captcha,
+    crossDomain,
     {
       component: info,
       enabledEnvironment: ['local'],
