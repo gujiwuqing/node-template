@@ -10,8 +10,9 @@ import {
 import { Context } from '@midwayjs/koa';
 import { MenuService } from '../service/menu.service';
 import { MenuDTO, MenuSearchDTO } from '../interface/menu';
-import { ApiOperation } from '@midwayjs/swagger';
+import { ApiOperation, ApiTags } from '@midwayjs/swagger';
 
+@ApiTags(['菜单'])
 @Controller('/menu')
 export class MenuController {
   @Inject()

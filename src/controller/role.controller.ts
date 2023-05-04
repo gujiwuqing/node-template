@@ -7,14 +7,15 @@ import {
   Body,
   ALL,
   Query,
-  Put
+  Put,
 } from '@midwayjs/decorator';
-import {RoleService} from '../service/role.service';
-import {Context} from '@midwayjs/koa';
-import {RoleSaveDTO, RoleSearchDTO} from '../interface/role';
-import {ApiOperation} from '@midwayjs/swagger';
+import { RoleService } from '../service/role.service';
+import { Context } from '@midwayjs/koa';
+import { RoleSaveDTO, RoleSearchDTO } from '../interface/role';
+import { ApiOperation, ApiTags } from '@midwayjs/swagger';
 
 @Provide()
+@ApiTags(['角色'])
 @Controller('/role')
 export class RoleController {
   @Inject()
@@ -24,15 +25,20 @@ export class RoleController {
   ctx: Context;
 
   @Post('/')
+  @ApiOperation({
+    summary: '创建角色',
+  })
   async saveRole(@Body(ALL) role: RoleSaveDTO) {
     return await this.RoleService.saveRole(role);
   }
 
   @Get('/list')
+  @ApiOperation({
+    summary: '获取角色列表',
+  })
   async getRoleList() {
     return await this.RoleService.getRoleList();
   }
-
 
   @Get('/page')
   @ApiOperation({
@@ -60,7 +66,6 @@ export class RoleController {
   async updateRolePermission(@Body() role: any) {
     return await this.RoleService.updateRolePermission(role);
   }
-
 
   @Get('/')
   @ApiOperation({

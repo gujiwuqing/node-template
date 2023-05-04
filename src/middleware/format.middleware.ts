@@ -17,8 +17,4 @@ export class FormatMiddleware implements IMiddleware<Context, NextFunction> {
       };
     };
   }
-
-  // match(ctx) {
-  //   return ctx.path.indexOf('/api') !== -1;
-  // }
 }

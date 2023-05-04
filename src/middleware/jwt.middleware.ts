@@ -38,11 +38,12 @@ export class JwtPassportMiddleware {
   }
   // 配置忽略鉴权的路由地址
   public match(ctx: Context): boolean {
-    return (
+    const ignore =
       ctx.path === '/user/login' ||
+      ctx.path === '/' ||
       ctx.path === '/captcha' ||
       (ctx.path === '/user' && ctx.method === 'POST') ||
-      (ctx.header.type !== 'backstage' && ctx.method === 'GET')
-    );
+      (ctx.header.type !== 'backstage' && ctx.method === 'GET');
+    return !ignore;
   }
 }

@@ -10,10 +10,11 @@ import {
 } from '@midwayjs/decorator';
 import { UserService } from '../service/user.service';
 import { Context } from '@midwayjs/koa';
-import {UserSearchDTO, UserLoginDTO, UserDTO} from '../interface/user';
-import {ApiOperation} from '@midwayjs/swagger';
+import { UserSearchDTO, UserLoginDTO, UserDTO } from '../interface/user';
+import { ApiOperation, ApiTags } from '@midwayjs/swagger';
 
 @Provide()
+@ApiTags(['用户'])
 @Controller('/user')
 export class UserController {
   @Inject()
@@ -33,7 +34,6 @@ export class UserController {
   async getUserList(@Query(ALL) queryUser: UserSearchDTO) {
     return await this.UserService.getUserList(queryUser);
   }
-
 
   @ApiOperation({ summary: '用户登录' })
   @Post('/login')
