@@ -1,13 +1,13 @@
 import {
-  Controller,
-  Post,
-  Get,
-  Provide,
-  Inject,
-  Body,
   ALL,
-  Query,
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Post,
+  Provide,
   Put,
+  Query,
 } from '@midwayjs/decorator';
 import { RoleService } from '../service/role.service';
 import { Context } from '@midwayjs/koa';

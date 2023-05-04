@@ -17,5 +17,5 @@ export class RoleSaveDTO {
   type: string;
 
   @ApiProperty({ description: '角色菜单' })
-  menus: string[];
+  menus: any[];
 }

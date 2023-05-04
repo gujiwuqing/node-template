@@ -11,7 +11,9 @@ import { Role } from './role';
 
 @Entity('menu')
 export class Menu extends BaseModel {
-  @Column()
+  @Column({
+    type: 'varchar',
+  })
   title: string;
 
   @Column({

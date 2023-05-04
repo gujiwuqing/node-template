@@ -5,6 +5,10 @@ import { Role } from '../entry/role';
 export default {
   // use for cookie sign key, should change to your own and keep security
   keys: '1682414696100_7305',
+  jwt: {
+    secret: 'asasas122432assadaad12411adas', // fs.readFileSync('xxxxx.key')
+    expiresIn: '2d', // https://github.com/vercel/ms
+  },
   koa: {
     port: 3002,
   },

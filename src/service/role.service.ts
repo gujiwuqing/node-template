@@ -18,7 +18,9 @@ export class RoleService {
     if (!user.name) {
       return { success: false, message: '标签不得为空', code: '2000' };
     }
-    const Role = await this.RoleModel.findOne(user.name);
+    const Role = await this.RoleModel.findOneBy({
+      name: user.name,
+    });
     if (Role) {
       return { success: false, message: '标签已存在', code: '2000' };
     }
@@ -63,12 +65,11 @@ export class RoleService {
   }
 
   async getRoleInfo(id) {
-    // return this.RoleModel.findOne(
-    //   { id },
-    //   {
-    //     relations: ['users', 'menus'],
-    //   }
-    // );
-    return this.RoleModel.findOne(id);
+    return this.RoleModel.findOne({
+      where: {
+        id,
+      },
+      relations: ['users', 'menus'],
+    });
   }
 }
