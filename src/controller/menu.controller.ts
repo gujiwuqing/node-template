@@ -11,6 +11,7 @@ import { Context } from '@midwayjs/koa';
 import { MenuService } from '../service/menu.service';
 import { MenuDTO, MenuSearchDTO } from '../interface/menu';
 import { ApiOperation, ApiTags } from '@midwayjs/swagger';
+import { Validate } from "@midwayjs/validate";
 
 @ApiTags(['菜单'])
 @Controller('/menu')
@@ -21,6 +22,9 @@ export class MenuController {
   @Inject()
   MenuService: MenuService;
 
+  @Validate({
+    locale: 'zh_CN',
+  })
   @Get('/list')
   @ApiOperation({
     summary: '获取菜单列表',

@@ -12,6 +12,7 @@ import { UserService } from '../service/user.service';
 import { Context } from '@midwayjs/koa';
 import { UserSearchDTO, UserLoginDTO, UserDTO } from '../interface/user';
 import { ApiOperation, ApiTags } from '@midwayjs/swagger';
+import { Validate } from "@midwayjs/validate";
 
 @Provide()
 @ApiTags(['用户'])
@@ -22,7 +23,9 @@ export class UserController {
 
   @Inject()
   ctx: Context;
-
+  @Validate({
+    locale: 'zh_CN',
+  })
   @ApiOperation({ summary: '新增用户' })
   @Post('/')
   async saveUser(@Body(ALL) user: UserDTO) {

@@ -13,6 +13,7 @@ import { RoleService } from '../service/role.service';
 import { Context } from '@midwayjs/koa';
 import { RoleSaveDTO, RoleSearchDTO } from '../interface/role';
 import { ApiOperation, ApiTags } from '@midwayjs/swagger';
+import { Validate } from '@midwayjs/validate';
 
 @Provide()
 @ApiTags(['角色'])
@@ -24,6 +25,9 @@ export class RoleController {
   @Inject()
   ctx: Context;
 
+  @Validate({
+    locale: 'zh_CN',
+  })
   @Post('/')
   @ApiOperation({
     summary: '创建角色',

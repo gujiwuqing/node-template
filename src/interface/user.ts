@@ -24,7 +24,9 @@ export class UserDTO {
   })
   password: string;
 
-  @Rule(RuleType.string().required())
+  @Rule(
+    RuleType.string().pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$/)
+  )
   @ApiProperty({
     description: '邮箱',
     example: '123456@qq.com',
@@ -38,7 +40,7 @@ export class UserDTO {
   })
   role: any;
 
-  @Rule(RuleType.string().optional())
+  @Rule(RuleType.string().pattern(/^1[3456789]\d{9}$/))
   @ApiProperty({
     description: '手机号',
     example: '13052635241',
