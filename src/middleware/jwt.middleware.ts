@@ -31,6 +31,7 @@ export class JwtPassportMiddleware {
           // const newToken = getToken(user);
           //将新token放入Authorization中返回给前端
           // ctx.set('Authorization', newToken);
+          throw new httpError.UnauthorizedError(error);
         }
         await next();
       }

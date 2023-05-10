@@ -16,6 +16,7 @@
     "@midwayjs/swagger": "^3.0.0",
     "@midwayjs/typeorm": "^3.0.0",
     "@midwayjs/validate": "^3.0.0",
+    "dayjs": "^1.11.7",
     "mysql2": "^3.2.3",
     "swagger-ui-dist": "^4.2.1",
     "typeorm": "~0.3.0"
