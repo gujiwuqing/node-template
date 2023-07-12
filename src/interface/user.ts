@@ -69,4 +69,16 @@ export class UserLoginDTO {
     example: '123456',
   })
   password: string;
+
+  @Rule(RuleType.optional())
+  @ApiProperty({
+    description: '验证码id',
+  })
+  id:any;
+
+  @Rule(RuleType.string().required())
+  @ApiProperty({
+    description: '验证码答案',
+  })
+  answer: string;
 }

@@ -1,5 +1,6 @@
 import { Inject, Provide } from '@midwayjs/decorator';
 import { InjectEntityModel } from '@midwayjs/typeorm';
+import { CaptchaService } from '@midwayjs/captcha';
 import { User } from '../entry/user';
 // import { Role } from '../entry/role';
 import { Repository } from 'typeorm';
@@ -15,6 +16,9 @@ export class UserService {
 
   @Inject()
   jwt: JwtService;
+
+  @Inject()
+  captchaService: CaptchaService;
 
   @Inject()
   ctx: Context;
@@ -54,8 +58,11 @@ export class UserService {
   }
 
   async userLogin(user: UserLoginDTO) {
-    const { username } = user;
-    // const User = await this.UserModel.findOne({ username: user.username });
+    const { username,id, answer  } = user;
+    const passed: boolean = await this.captchaService.check(id, answer);
+    if (!passed) {
+      throw new CustomHttpError('验证码不正确',1006);
+    }
     const User = await this.UserModel.createQueryBuilder('user')
       .innerJoinAndSelect('user.role', 'role')
       .leftJoinAndMapMany('role.menus', 'role.menus', 'menu')
