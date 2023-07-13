@@ -41,13 +41,15 @@ export class UserService {
 
   //查询列表
   async getUserList(queryUser: UserSearchDTO) {
-    const { username = '', pageNo = 1, pageSize = 10 } = queryUser;
+    const { username = '', pageNo = 1, pageSize = 10,phone='' ,email=''} = queryUser;
 
     const total = await this.UserModel.count();
     const list = await this.UserModel.createQueryBuilder('user')
       .innerJoinAndSelect('user.role', 'role')
       .leftJoinAndMapMany('role.menus', 'role.menus', 'menu')
-      .where(`user.username LIKE '%${username}%'`, { username: username })
+      .where(`user.username LIKE '%${username}%'`, { username })
+      .andWhere(`user.phone LIKE '%${phone}%'`, { phone })
+      .andWhere(`user.email LIKE '%${email}%'`, { email })
       .orderBy({
         'user.createdAt': 'DESC',
       })

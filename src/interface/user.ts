@@ -7,6 +7,16 @@ export class UserSearchDTO extends BaseListDTO {
     description: '用户名',
   })
   username?: string;
+
+  @ApiProperty({
+    description: '手机号',
+  })
+  phone?: string;
+
+  @ApiProperty({
+    description: '邮箱',
+  })
+  email?: string;
 }
 
 export class UserDTO {

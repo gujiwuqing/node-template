@@ -2,7 +2,7 @@ import { Context } from '@midwayjs/koa';
 import { Menu } from '../entry/menu';
 import { Inject, Provide } from '@midwayjs/decorator';
 import { InjectEntityModel } from '@midwayjs/typeorm';
-import { Repository, IsNull } from 'typeorm';
+import { Repository } from 'typeorm';
 import { MenuSearchDTO } from '../interface/menu';
 
 @Provide()
@@ -23,12 +23,7 @@ export class MenuService {
   }
 
   async getMenuList() {
-    const list = await this.MenuModel.find({
-      relations: ['childMenus'],
-      where: {
-        parentMenu: IsNull(),
-      },
-    });
+    const list = await this.MenuModel.find();
     return {
       code: 200,
       msg: 'success',

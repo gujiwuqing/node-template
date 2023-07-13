@@ -1,7 +1,5 @@
 import {
   Column,
-  ManyToOne,
-  OneToMany,
   ManyToMany,
   JoinTable,
   Entity,
@@ -60,12 +58,11 @@ export class Menu extends BaseModel {
   status: number;
 
   //1:正常，0:禁用
-
-  @ManyToOne(type => Menu, menu => menu.childMenus)
-  parentMenu: Menu;
-
-  @OneToMany(type => Menu, menu => menu.parentMenu)
-  childMenus: Menu[];
+  @Column({
+    comment: '父级菜单id',
+    default: '',
+  })
+  parentMenuId: string;
 
   @ManyToMany(() => Role, role => role.menus)
   @JoinTable()
