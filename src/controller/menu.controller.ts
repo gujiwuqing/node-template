@@ -54,6 +54,24 @@ export class MenuController {
     });
   }
 
+  @Get('/')
+  @ApiOperation({
+    summary: '获取单个菜单信息',
+    description: '获取单个菜单信息',
+  })
+  async getRoleInfo(@Query('id') id: string) {
+    return await this.MenuService.getMenuInfo(id);
+  }
+
+  @Post('/update')
+  @ApiOperation({
+    summary: '更新菜单',
+    description: '更新菜单',
+  })
+  async updateMenu(@Body(ALL) menu: MenuDTO) {
+    return await this.MenuService.updateMenu(menu);
+  }
+
   @Post('/deleteOneById')
   @ApiOperation({
     summary: '删除菜单',

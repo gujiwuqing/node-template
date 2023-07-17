@@ -11,6 +11,9 @@ export class MenuSearchDTO extends BaseListDTO {
   @ApiProperty({ description: '菜单名称' })
   title?: string;
 
+  @ApiProperty({ description: '路由地址' })
+  path?: string;
+
   @ApiProperty({ description: '菜单类型', example: MenuType.MENU })
   type?: MenuType.MENU;
 

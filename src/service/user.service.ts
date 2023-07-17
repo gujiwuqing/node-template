@@ -43,7 +43,6 @@ export class UserService {
   async getUserList(queryUser: UserSearchDTO) {
     const { username = '', pageNo = 1, pageSize = 10,phone='' ,email=''} = queryUser;
 
-    const total = await this.UserModel.count();
     const list = await this.UserModel.createQueryBuilder('user')
       .innerJoinAndSelect('user.role', 'role')
       .leftJoinAndMapMany('role.menus', 'role.menus', 'menu')
@@ -56,7 +55,7 @@ export class UserService {
       .skip((Number(pageNo) - 1) * Number(pageSize))
       .take(Number(pageSize))
       .getMany();
-    return { list, total, pageNo, pageSize };
+    return { list, total:list.length, pageNo, pageSize };
   }
 
   async userLogin(user: UserLoginDTO) {

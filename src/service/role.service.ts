@@ -57,13 +57,11 @@ export class RoleService {
   }
 
   async updateRole(role) {
-    console.log(role);
+    return await  this.RoleModel.update(role.id, role)
   }
 
   async updateRolePermission(data) {
-    // {menus:[{id:'1'}]
     const {id, menus} = data;
-    console.log('data', data);
     const roleToUpdate = await this.RoleModel.findOne({
       where: {id}
     });

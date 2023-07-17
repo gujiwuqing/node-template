@@ -6,7 +6,6 @@ import {
   Inject,
   Post,
   Provide,
-  Put,
   Query,
 } from '@midwayjs/decorator';
 import { RoleService } from '../service/role.service';
@@ -53,7 +52,7 @@ export class RoleController {
     return await this.RoleService.getRolePage(body);
   }
 
-  @Put('/')
+  @Post('/update')
   @ApiOperation({
     summary: '更新角色',
     description: '更新角色',
