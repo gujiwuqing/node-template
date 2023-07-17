@@ -54,4 +54,8 @@ export class MenuService {
       .getManyAndCount();
     return { list, total, pageNo, pageSize };
   }
+
+  async deleteMenu(id) {
+    return this.MenuModel.delete({id});
+  }
 }

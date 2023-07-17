@@ -84,7 +84,7 @@ export class UserService {
         data: 'foobar',
       },
       // secret,
-      { expiresIn: '1h' }
+      { expiresIn: '1d' }
     );
     return {
       ...User,

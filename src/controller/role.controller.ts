@@ -62,12 +62,13 @@ export class RoleController {
     return await this.RoleService.updateRole(role);
   }
 
-  @Put('/permission')
+  @Post('/permission')
   @ApiOperation({
     summary: '更新角色权限',
     description: '更新角色权限',
   })
   async updateRolePermission(@Body() role: any) {
+    console.log('role',role);
     return await this.RoleService.updateRolePermission(role);
   }
 
@@ -78,5 +79,14 @@ export class RoleController {
   })
   async getRoleInfo(@Query('id') id: string) {
     return await this.RoleService.getRoleInfo(id);
+  }
+
+  @Post('/deleteOneById')
+  @ApiOperation({
+    summary: '删除角色',
+    description: '删除角色',
+  })
+  async deleteRole(@Body('id') id:string) {
+    return await this.RoleService.deleteRole(id);
   }
 }

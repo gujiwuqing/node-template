@@ -53,4 +53,13 @@ export class MenuController {
       ...body,
     });
   }
+
+  @Post('/deleteOneById')
+  @ApiOperation({
+    summary: '删除菜单',
+    description: '删除菜单',
+  })
+  async deleteMenu(@Body('id') id:string) {
+    return await this.MenuService.deleteMenu(id);
+  }
 }
