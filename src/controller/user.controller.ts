@@ -43,4 +43,33 @@ export class UserController {
   async userLogin(@Body(ALL) user: UserLoginDTO) {
     return await this.UserService.userLogin(user);
   }
+
+
+@Post('/update')
+@ApiOperation({
+  summary: '更新用户',
+  description: '更新用户',
+})
+async updateUser(@Body() user: any) {
+  return await this.UserService.updateUser(user);
+}
+
+
+@Get('/')
+@ApiOperation({
+  summary: '获取单个用户',
+  description: '获取单个用户',
+})
+async getUserInfo(@Query('id') id: string) {
+  return await this.UserService.getUserInfo(id);
+}
+
+@Post('/deleteOneById')
+@ApiOperation({
+  summary: '删除用户',
+  description: '删除用户',
+})
+async deleteUser(@Body('id') id:string) {
+  return await this.UserService.deleteUser(id);
+}
 }

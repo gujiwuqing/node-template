@@ -2,7 +2,7 @@ import { Inject, Provide } from '@midwayjs/decorator';
 import { InjectEntityModel } from '@midwayjs/typeorm';
 import { CaptchaService } from '@midwayjs/captcha';
 import { User } from '../entry/user';
-// import { Role } from '../entry/role';
+// import { User } from '../entry/user';
 import { Repository } from 'typeorm';
 import { UserLoginDTO, UserSearchDTO } from '../interface/user';
 import { Context } from '@midwayjs/koa';
@@ -44,8 +44,6 @@ export class UserService {
     const { username = '', pageNo = 1, pageSize = 10,phone='' ,email=''} = queryUser;
 
     const list = await this.UserModel.createQueryBuilder('user')
-      .innerJoinAndSelect('user.role', 'role')
-      .leftJoinAndMapMany('role.menus', 'role.menus', 'menu')
       .where(`user.username LIKE '%${username}%'`, { username })
       .andWhere(`user.phone LIKE '%${phone}%'`, { phone })
       .andWhere(`user.email LIKE '%${email}%'`, { email })
@@ -65,8 +63,8 @@ export class UserService {
       throw new CustomHttpError('验证码不正确',1006);
     }
     const User = await this.UserModel.createQueryBuilder('user')
-      .innerJoinAndSelect('user.role', 'role')
-      .leftJoinAndMapMany('role.menus', 'role.menus', 'menu')
+      .innerJoinAndSelect('user.user', 'user')
+      .leftJoinAndMapMany('user.menus', 'user.menus', 'menu')
       .where(`user.username LIKE '%${username}%'`, { username: username })
       .orderBy({
         'user.createdAt': 'DESC',
@@ -89,5 +87,23 @@ export class UserService {
       ...User,
       token: `Bearer ${token}`,
     };
+  }
+
+
+  async updateUser(user) {
+    return await  this.UserModel.update(user.id, user)
+  }
+
+
+  async getUserInfo(id) {
+    return this.UserModel.findOne({
+      where: {
+        id,
+      }
+    });
+  }
+
+  async deleteUser(id) {
+    return this.UserModel.delete({id});
   }
 }
