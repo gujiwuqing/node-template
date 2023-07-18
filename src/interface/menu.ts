@@ -7,6 +7,7 @@ export enum MenuType {
   BUTTON = 'button',
 }
 
+
 export class MenuSearchDTO extends BaseListDTO {
   @ApiProperty({ description: '菜单名称' })
   title?: string;

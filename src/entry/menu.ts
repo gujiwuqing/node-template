@@ -43,9 +43,12 @@ export class Menu extends BaseModel {
   })
   level: string;
 
+
   @Column({
+    type: 'enum',
+    enum: MenuType,
+    default: MenuType.BUTTON,
     comment: '菜单类型',
-    default: MenuType.MENU,
   })
   type: MenuType;
 
