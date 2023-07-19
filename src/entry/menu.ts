@@ -34,6 +34,7 @@ export class Menu extends BaseModel {
 
   @Column({
     comment: '菜单编码',
+    default: '',
   })
   code: string;
 
