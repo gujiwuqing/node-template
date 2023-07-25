@@ -12,6 +12,7 @@ export class User extends BaseModel {
 
   @Column({
     comment: '密码',
+    select:false
   })
   password: string;
 

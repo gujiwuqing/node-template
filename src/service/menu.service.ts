@@ -54,7 +54,7 @@ export class MenuService {
       status = '',
     } = queryUser;
 
-    const [list, total] = await this.MenuModel.createQueryBuilder('menu')
+    const query = await this.MenuModel.createQueryBuilder('menu')
       .where(`menu.title LIKE '%${title}%'`, {title: title})
       .andWhere(`menu.type LIKE '%${type}%'`, {type})
       .andWhere(`menu.status LIKE '%${status}%'`, {status})
@@ -63,6 +63,8 @@ export class MenuService {
         // 'menu.sort': 'DESC',
         'menu.createdAt': 'DESC',
       })
+
+    const [list, total] = await query
       .skip((Number(pageNo) - 1) * Number(pageSize))
       .take(Number(pageSize))
       .getManyAndCount();

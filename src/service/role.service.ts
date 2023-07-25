@@ -41,17 +41,17 @@ export class RoleService {
   //查询分页
   async getRolePage(queryUser: RoleSearchDTO) {
     const {name = '', pageNo = 1, pageSize = 10, type = ''} = queryUser;
-    console.log(type);
-    const [list, total] = await this.RoleModel.createQueryBuilder('role')
+
+    const query = await this.RoleModel.createQueryBuilder('role')
       .where(`role.name LIKE '%${name}%'`, {name: name})
       .andWhere(`role.type LIKE '%${type}%'`, {type})
       .orderBy({
         'role.createdAt': 'DESC',
       })
-      .skip((Number(pageNo) - 1) * Number(pageSize))
+
+    const [list, total] = await query.skip((Number(pageNo) - 1) * Number(pageSize))
       .take(Number(pageSize))
       .getManyAndCount();
-    // .getSql();
 
     return {list, total, pageNo, pageSize};
   }

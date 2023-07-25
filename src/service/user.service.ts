@@ -1,12 +1,12 @@
-import { Inject, Provide } from '@midwayjs/decorator';
-import { InjectEntityModel } from '@midwayjs/typeorm';
-import { CaptchaService } from '@midwayjs/captcha';
-import { User } from '../entry/user';
-import { Repository } from 'typeorm';
-import { UserLoginDTO, UserSearchDTO } from '../interface/user';
-import { Context } from '@midwayjs/koa';
-import { JwtService } from '@midwayjs/jwt';
-import { CustomHttpError } from '../error/custom.error'
+import {Inject, Provide} from '@midwayjs/decorator';
+import {InjectEntityModel} from '@midwayjs/typeorm';
+import {CaptchaService} from '@midwayjs/captcha';
+import {User} from '../entry/user';
+import {Repository} from 'typeorm';
+import {UserLoginDTO, UserSearchDTO} from '../interface/user';
+import {Context} from '@midwayjs/koa';
+import {JwtService} from '@midwayjs/jwt';
+import {CustomHttpError} from '../error/custom.error'
 
 @Provide()
 export class UserService {
@@ -40,33 +40,36 @@ export class UserService {
 
   //查询列表
   async getUserList(queryUser: UserSearchDTO) {
-    const { username = '', pageNo = 1, pageSize = 10,phone='' ,email=''} = queryUser;
+    const {username = '', pageNo = 1, pageSize = 10, phone = '', email = ''} = queryUser;
 
-    const list = await this.UserModel.createQueryBuilder('user')
+    const query = await this.UserModel.createQueryBuilder('user')
       .innerJoinAndSelect('user.role', 'role')
       .leftJoinAndMapMany('role.menus', 'role.menus', 'menu')
-      .where(`user.username LIKE '%${username}%'`, { username })
-      .andWhere(`user.phone LIKE '%${phone}%'`, { phone })
-      .andWhere(`user.email LIKE '%${email}%'`, { email })
+      .where(`user.username LIKE '%${username}%'`, {username})
+      .andWhere(`user.phone LIKE '%${phone}%'`, {phone})
+      .andWhere(`user.email LIKE '%${email}%'`, {email})
       .orderBy({
         'user.createdAt': 'DESC',
       })
-      .skip((Number(pageNo) - 1) * Number(pageSize))
+
+    const [list, length] = await query.skip((Number(pageNo) - 1) * Number(pageSize))
       .take(Number(pageSize))
-      .getMany();
-    return { list, total:list.length, pageNo, pageSize };
+      .getManyAndCount();
+
+    return {list, total: length, pageNo, pageSize};
   }
 
   async userLogin(user: UserLoginDTO) {
-    const { username,id, answer  } = user;
+    const {username, id, answer} = user;
     const passed: boolean = await this.captchaService.check(id, answer);
     if (!passed) {
-      throw new CustomHttpError('验证码不正确',1006);
+      throw new CustomHttpError('验证码不正确', 1006);
     }
     const User = await this.UserModel.createQueryBuilder('user')
       .innerJoinAndSelect('user.role', 'role')
       .leftJoinAndMapMany('role.menus', 'role.menus', 'menu')
-      .where(`user.username LIKE '%${username}%'`, { username: username })
+      .where(`user.username LIKE '%${username}%'`, {username: username})
+      .addSelect('user.password')
       .orderBy({
         'user.createdAt': 'DESC',
       })
@@ -82,7 +85,7 @@ export class UserService {
         data: 'foobar',
       },
       // secret,
-      { expiresIn: '1d' }
+      {expiresIn: '1d'}
     );
     return {
       ...User,
@@ -92,7 +95,7 @@ export class UserService {
 
 
   async updateUser(user) {
-    return await  this.UserModel.update(user.id, user)
+    return await this.UserModel.update(user.id, user)
   }
 
 
